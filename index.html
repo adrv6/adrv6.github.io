@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adriana Viray — Desarrolladora web</title>
+<meta name="description" content="Portfolio de Adriana Viray, estudiante de Desarrollo de Aplicaciones Web.">
+<style>
+  :root {
+    --bg: #1c1c1c;
+    --panel: #141414;
+    --crimson: #800020;
+    --crimson-hi: #e8637f;
+    --text: #e8e3de;
+    --muted: #9a948f;
+    --line: #3a3a3a;
+    --mono: ui-monospace, "Cascadia Code", "JetBrains Mono", Consolas, Menlo, monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    /* esquinas cortadas, el detalle "corporativo cyber" */
+    --chamfer: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 24px 100%, 0 calc(100% - 24px));
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.65; border-top: 6px solid var(--crimson); }
+  a { color: var(--crimson-hi); }
+  a:focus-visible { outline: 2px solid var(--crimson-hi); outline-offset: 3px; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 1.25rem; }
+
+  /* Cabecera */
+  header { border-bottom: 1px solid var(--line); }
+  header .wrap { display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; padding-bottom: 1rem; flex-wrap: wrap; gap: .5rem; }
+  .logo { font-family: var(--mono); font-weight: 800; font-size: 1.7rem; letter-spacing: .06em; color: var(--text); text-decoration: none; }
+  nav a { font-family: var(--mono); font-size: .9rem; color: var(--muted); text-decoration: none; margin-left: 1.25rem; }
+  nav a:hover { color: var(--crimson-hi); }
+
+  /* Hero */
+  .hero {
+    padding: 4.5rem 0 5rem;
+    background-image:
+      linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+    background-size: 44px 44px;
+    overflow: hidden;
+  }
+  .hero .wrap { display: grid; grid-template-columns: 1.5fr 1fr; gap: 3rem; align-items: center; }
+  .kicker { font-family: var(--mono); color: var(--muted); margin: 0 0 .5rem; }
+  .kicker::before { content: "// "; color: var(--crimson-hi); }
+  h1 {
+    font-family: var(--mono); font-weight: 800; margin: 0;
+    font-size: clamp(4.5rem, 17vw, 11.5rem); line-height: .9; letter-spacing: -.04em;
+  }
+  .bar { height: 14px; width: 100%; max-width: 560px; background: var(--crimson); margin: 1.25rem 0 1.5rem; transform-origin: left; animation: wipe .9s cubic-bezier(.7,0,.2,1) both; }
+  @keyframes wipe { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .role { font-family: var(--mono); font-size: clamp(1.1rem, 2.6vw, 1.5rem); font-weight: 700; margin: 0 0 .5rem; }
+
+  /* Botón */
+  .actions { margin: 1.75rem 0 0; }
+  .btn {
+    display: inline-block; background: var(--crimson); color: #fff; text-decoration: none;
+    font-family: var(--mono); font-weight: 700; padding: .85rem 1.6rem;
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  }
+  .btn:hover { background: #a3112f; }
+  .btn:focus-visible { outline: 2px solid var(--crimson-hi); outline-offset: 4px; }
+
+  /* Ficha */
+  .dossier-wrap { position: relative; }
+  .dossier-wrap::before { content: ""; position: absolute; inset: 0; background: var(--crimson); transform: translate(14px, 14px); clip-path: var(--chamfer); }
+  .dossier { position: relative; background: var(--panel); clip-path: var(--chamfer); padding: 1.75rem 1.75rem 1.5rem; border-top: 4px solid var(--crimson); }
+  .dossier h2 { font-size: 1rem; margin: 0 0 1.25rem; }
+  .dossier dl { margin: 0; font-family: var(--mono); font-size: .9rem; }
+  .dossier dt { color: var(--muted); margin-top: .9rem; }
+  .dossier dd { margin: 0; }
+  .dot { display: inline-block; width: .6em; height: .6em; background: var(--crimson-hi); margin-right: .5em; }
+
+  /* Secciones */
+  section { padding: 3.5rem 0; border-top: 1px solid var(--line); }
+  h2 { font-family: var(--mono); font-size: 1.3rem; margin: 0 0 1.5rem; }
+  section h2::before, .dossier h2::before { content: "// "; color: var(--crimson-hi); }
+  .about p { max-width: 65ch; margin: 0 0 1rem; }
+  .stack { list-style: none; padding: 0; margin: 1.5rem 0 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+  .stack li { font-family: var(--mono); font-size: .85rem; border: 1px solid var(--line); padding: .25rem .7rem; }
+
+  /* Desplegables dentro de "sobre mí" */
+  .fold { margin-top: 2.5rem; border-top: 1px solid var(--line); }
+  .fold details { border-bottom: 1px solid var(--line); }
+  .fold summary {
+    cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 0; font-family: var(--mono);
+  }
+  .fold summary::-webkit-details-marker { display: none; }
+  .fold summary::after { content: "+"; color: var(--crimson-hi); font-size: 1.3rem; line-height: 1; }
+  .fold details[open] summary::after { content: "\2212"; }
+  .fold summary:hover { color: var(--crimson-hi); }
+  .fold summary:focus-visible { outline: 2px solid var(--crimson-hi); outline-offset: 3px; }
+  .fold-body { padding: 0 0 1.25rem; }
+  .fold-body p { margin: 0; max-width: 65ch; }
+  .fold .beliefs-list li:last-child { border-bottom: 0; }
+
+  /* Cosas en las que creo */
+  .beliefs-list { list-style: none; counter-reset: b; padding: 0; margin: 0; }
+  .beliefs-list li {
+    counter-increment: b; display: flex; gap: 1.25rem; align-items: baseline;
+    padding: .85rem 0; border-bottom: 1px solid var(--line);
+    font-family: var(--mono); font-weight: 400; line-height: 1.4;
+    font-size: clamp(.95rem, 2vw, 1.1rem);
+  }
+  .beliefs-list li::before { content: counter(b); color: var(--crimson-hi); font-size: .85rem; min-width: 1.5rem; }
+
+  /* Proyectos */
+  .project { background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--crimson); padding: 1.5rem; }
+  .project + .project { margin-top: 1rem; }
+  .project h3 { font-family: var(--mono); margin: 0 0 .25rem; font-size: 1.15rem; }
+  .status { font-family: var(--mono); font-size: .8rem; color: var(--crimson-hi); margin: 0 0 1rem; }
+  .project p { margin: 0 0 1rem; max-width: 65ch; }
+  .project ul { margin: 0; padding-left: 1.2rem; color: var(--muted); }
+  .project .link { margin: 1rem 0 0; font-family: var(--mono); font-size: .9rem; }
+  .more { margin: 1.5rem 0 0; font-family: var(--mono); }
+
+  /* Certificaciones */
+  .certs { list-style: none; padding: 0; margin: 0; font-family: var(--mono); }
+  .certs li { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; padding: .9rem 0; border-bottom: 1px solid var(--line); }
+  .certs span { color: var(--muted); }
+  .certs a { margin-left: auto; }
+
+  /* Contacto */
+  .contact ul { list-style: none; padding: 0; margin: 0; font-family: var(--mono); }
+  .contact li { margin-bottom: .5rem; }
+  .contact span { color: var(--muted); display: inline-block; min-width: 6.5rem; }
+
+  footer { border-top: 1px solid var(--line); padding: 1.5rem 0 3rem; color: var(--muted); font-family: var(--mono); font-size: .8rem; }
+
+  @media (max-width: 800px) {
+    .hero .wrap { grid-template-columns: 1fr; gap: 3rem; }
+    .dossier-wrap { margin-right: 14px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .bar { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Adriana Viray, ir al inicio">AV</a>
+    <nav aria-label="Principal">
+      <a href="#sobre-mi">sobre mí</a>
+      <a href="#proyectos">proyectos</a>
+      <a href="#certificaciones">certificaciones</a>
+      <a href="#contacto">contacto</a>
+      <a href="en/" lang="en" hreflang="en">EN</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <p class="kicker">portfolio</p>
+        <h1>Adriana<br>Viray</h1>
+        <div class="bar" aria-hidden="true"></div>
+        <p class="role">Desarrolladora web</p>
+        <p class="actions"><a class="btn" href="cv-adriana-viray.pdf" download>Descargar CV</a></p>
+      </div>
+      <div class="dossier-wrap">
+        <aside class="dossier" aria-label="Ficha">
+          <h2>ficha</h2>
+          <dl>
+            <dt>rol</dt><dd>Desarrolladora web</dd>
+            <dt>formación</dt><dd>DAW, Universidad Alfonso X el Sabio</dd>
+            <dt>estado</dt><dd><span class="dot"></span>buscando prácticas</dd>
+          </dl>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <section id="sobre-mi" class="about">
+    <div class="wrap">
+      <h2>sobre mí</h2>
+      <!-- TODO: reescribe estos textos con tus palabras -->
+      <p>Soy estudiante de segundo curso de DAW en UAX. Me gusta aprender construyendo cosas que pueda ver y probar.</p>
+      <p>Practico Python con retos en Codewars y Codedex, donde he conseguido las certificaciones de Python y de HTML y CSS.</p>
+      <p>Ahora mismo trabajo en mi proyecto final y busco prácticas como desarrolladora web.</p>
+      <ul class="stack" aria-label="Tecnologías">
+        <li>HTML</li><li>CSS</li><li>JavaScript</li><li>Python</li><li>PHP</li><li>MySQL</li>
+      </ul>
+
+      <div class="fold">
+        <details>
+          <summary>intereses</summary>
+          <div class="fold-body">
+            <p>Fuera de clase me interesan la ciberseguridad y la ingeniería biomecánica, y me atrae todo lo que une tecnología y cuerpo humano o sistemas seguros.</p>
+          </div>
+        </details>
+        <details>
+          <summary>cosas en las que creo</summary>
+          <div class="fold-body">
+            <ol class="beliefs-list">
+              <li>La accesibilidad no es opcional.</li>
+              <li>Preguntar no es de novatos.</li>
+              <li>Un buen detalle cambia toda la experiencia.</li>
+            </ol>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section id="proyectos">
+    <div class="wrap">
+      <h2>proyectos</h2>
+
+      <article class="project">
+        <h3>Forge</h3>
+        <p class="status">En desarrollo (proyecto fin de grado)</p>
+        <p>Web responsive para crear y seguir tus rutinas de gimnasio desde el móvil.</p>
+        <ul>
+          <li>Registro e inicio de sesión</li>
+          <li>Biblioteca de ejercicios con filtros por músculo</li>
+          <li>Rutinas propias: crear, editar y borrar</li>
+          <li>Seguimiento de entrenamientos y progreso</li>
+        </ul>
+        <!-- TODO: cuando Forge tenga repositorio, añade aquí: <p class="link"><a href="...">Ver código en GitHub</a></p> -->
+      </article>
+
+      <article class="project">
+        <h3>Gestor de inventario</h3>
+        <p class="status">Terminado (Python)</p>
+        <p>Programa de consola para gestionar productos y stock desde un menú interactivo.</p>
+        <ul>
+          <li>Alta de productos, actualización de stock y cálculo del valor total</li>
+          <li>Control de errores: duplicados, stock insuficiente, productos inexistentes</li>
+          <li>Suite de tests automáticos incluida</li>
+        </ul>
+        <p class="link"><a href="https://github.com/adrv6/python-projects">Ver código en GitHub</a></p>
+      </article>
+
+      <p class="more">Más práctica: <a href="https://github.com/adrv6/python-excercises">ejercicios de Python</a></p>
+    </div>
+  </section>
+
+  <section id="certificaciones">
+    <div class="wrap">
+      <h2>certificaciones</h2>
+      <ul class="certs">
+        <li><strong>Python</strong><span>Codedex</span></li>
+        <li><strong>HTML y CSS</strong><span>Codedex</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contacto" class="contact">
+    <div class="wrap">
+      <h2>contacto</h2>
+      <ul>
+        <li><span>correo</span><a href="mailto:adrianavirayc@gmail.com">adrianavirayc@gmail.com</a></li>
+        <li><span>linkedin</span><a href="https://www.linkedin.com/in/adriana-viray-b700a9200/">linkedin.com/in/adriana-viray-b700a9200</a></li>
+        <li><span>github</span><a href="https://github.com/adrv6">github.com/adrv6</a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Made with love.</div>
+</footer>
+</body>
+</html>
